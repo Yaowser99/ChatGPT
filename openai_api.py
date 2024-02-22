@@ -1,5 +1,5 @@
 # Set your API key
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="____")
 
 messages = [{"role": "system", "content": "You are a helpful math tutor."}]
 user_msgs = ["Explain what pi is.", "Summarize this in two bullet points."]
