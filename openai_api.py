@@ -136,6 +136,122 @@ chat_response = client.chat.completions.create(
 print(chat_response.choices[0].message.content)
 
 
+## Embeddings
+# Create an OpenAI client and set your API key
+client = OpenAI(api_key="____")
+
+# Create a request to obtain embeddings
+response = client.embeddings.create(
+    model="text-embedding-ada-002",
+    input="Embeddings are a numerical representation of text that can be used to measure the relatedness between two pieces of text."
+)
+
+# Convert the response into a dictionary
+response_dict = response.model_dump()
+
+print(response_dict)
+# Extrat the embeddings from the response
+print(response_dict['data'][0]['embedding'])
+# Extract the total tokens from response
+print(response_dict['usage']['total_tokens'])
+
+
+
+## Embedding multiple inputs, storing and handling. 
+# Set your API key
+client = OpenAI(api_key="____")
+
+# Extract a list of product short descriptions from products
+product_descriptions = [product['short_description'] for product in products]
+
+# Create embeddings for each product description
+response = client.embeddings.create(
+    model="text-embedding-ada-002",
+    input=product_descriptions
+)
+response_dict = response.model_dump()
+
+# Extract the embeddings from response_dict and store in products
+for i, product in enumerate(products):
+    product['embedding'] = response_dict['data'][i]['embedding']
+    
+print(products[0].items())
+
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
+import numpy as np
+# Create reviews and embeddings lists using list comprehensions
+categories = [product['category'] for product in products]
+embeddings = [product['embedding'] for product in products]
+
+# Reduce the number of embeddings dimensions to two using t-SNE
+tsne = TSNE(n_components=2, perplexity=5)
+embeddings_2d = tsne.fit_transform(np.array(embeddings))
+
+# Create a scatter plot from embeddings_2d
+plt.scatter(embeddings_2d[:,0], embeddings_2d[:,1])
+
+for i, category in enumerate(categories):
+    plt.annotate(category, (embeddings_2d[i, 0], embeddings_2d[i, 1]))
+
+plt.show()
+
+
+## Text Similariy
+# Set your API key
+client = OpenAI(api_key="____")
+
+# Define a create_embeddings function
+from scipy.spatial import distance
+import numpy as np
+def create_embeddings(texts):
+  response = client.embeddings.create(
+    model="text-embedding-ada-002",
+    input=texts
+  )
+  response_dict = response.model_dump()
+  
+  return [data['embedding'] for data in response_dict['data']]
+
+# Embed short_description and print
+print(create_embeddings(short_description)[0])
+
+# Embed list_of_descriptions and print
+print(create_embeddings(list_of_descriptions))
+# Set your API key
+client = OpenAI(api_key="____")
+
+# Embed the search text
+search_text = "soap"
+search_embedding = create_embeddings(search_text)[0]
+
+distances = []
+for product in products:
+  # Compute the cosine distance for each product description
+  dist = distance.cosine(search_embedding, product['embedding'])
+  distances.append(dist)
+
+# Find and print the most similar product short_description    
+min_dist_ind = np.argmin(distances)
+print(products[min_dist_ind]['short_description'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
