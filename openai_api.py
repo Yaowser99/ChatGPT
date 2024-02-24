@@ -236,6 +236,7 @@ min_dist_ind = np.argmin(distances)
 print(products[min_dist_ind]['short_description'])
 
 
+## Semantic search and enriched embeddings
 
 
 
