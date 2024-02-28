@@ -384,8 +384,59 @@ for index, review in enumerate(reviews):
 
 
 ## Vector Databases for embedding systems
+import chromadb
+# Create a persistant client
+client = chromadb.PersistentClient()
 
+from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
+# Create a netflix_title collection using the OpenAI Embedding function
+collection = client.create_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
 
+# List the collections
+print(client.list_collections())
+# pip install tiktoken
+
+import tiktoken
+# Load the encoder for the OpenAI text-embedding-ada-002 model
+enc = tiktoken.encoding_for_model("text-embedding-ada-002")
+
+# Encode each text in documents and calculate the total tokens
+total_tokens = sum(len(enc.encode(text)) for text in documents)
+
+cost_per_1k_tokens = 0.0001
+
+# Display number of tokens and cost
+print('Total tokens:', total_tokens)
+print('Cost:', cost_per_1k_tokens*total_tokens/1000)
+
+# Recreate the netflix_titles collection
+collection = client.create_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
+
+# Add the documents and IDs to the collection
+ids = []
+documents = []
+
+with open('netflix_titles.csv') as csvfile:
+  reader = csv.DictReader(csvfile)
+  for i, row in enumerate(reader):
+    ids.append(row['show_id'])
+    text = f"Title: {row['title']} ({row['type']})\nDescription: {row['description']}\nCategories: {row['listed_in']}"
+    documents.append(text)
+
+collection.add(
+  ids = ids,
+  documents=documents
+)
+
+# Print the collection size and first ten items
+print(f"No. of documents: {collection.count()}")
+print(f"First ten documents: {collection.peek()}")
 
 
 
