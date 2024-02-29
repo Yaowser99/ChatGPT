@@ -478,7 +478,52 @@ print(result)
 
 
 
+# Multiple queries and filtering
+# Retrieve the netflix_titles collection
+collection = client.get_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
 
+reference_ids = ['s999', 's1000']
+
+# Retrieve the documents for the reference_ids
+reference_texts = collection.get(ids=reference_ids)['documents']
+
+# Query using reference_texts
+result = collection.query(
+  query_texts=reference_texts,
+  n_results=3
+)
+
+print(result['documents'])
+
+# Retrieve the netflix_titles collection
+collection = client.get_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
+
+reference_texts = ["children's story about a car", "lions"]
+
+# Query two results using reference_texts
+result = collection.query(
+  query_texts=reference_texts,
+  n_results=2,
+  # Filter for titles with a G rating released before 2019
+  where={
+    "$and": [
+        {"rating": 
+        	{"$eq":"G"}
+        },
+        {"release_year": 
+         	{"$lt":2019}
+        }
+    ]
+  }
+)
+
+print(result['documents'])
 
 
 
