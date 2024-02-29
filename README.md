@@ -1,4 +1,17 @@
-# ChatGPT
+# OpenAI
+
+## Chapter 1 - Intro to OpenAI API
+ * What was it used for, how to create an API key for authentication, and how to make requests to the API via the completions endpoint
+ * Creating and managing organizations, which we can use to metigate reate limit risks and better manage usage and expenditure.
+
+## Chapter 2 - OpenAI Model Applications
+ * Solved a range of tasks, including question answering, text transformation, content generation, sentiment analysis, and categorization.
+ * Control the model's behavior by twesking the max_tokens and temperature parameters.
+ * Unlock potential for multi-turn conversations using the Chat Completions endpoint, and created an AI chatbot.
+
+## Chapter 3 - Moderation and Audio Models
+ * Learning about moderation and audio functionalities, and used these modles to detect inappropriate content, and translate and transcribe audio recordings.
+ * Chaining models together to start automating more complex tasks like creating meeting summaries form recordings. 
 
 ## Chapter 4 - What are Embeddings?
  * Embeddings are vector or numerical representations of text that capture its semantic meaning.
