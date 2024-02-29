@@ -441,9 +441,40 @@ print(f"First ten documents: {collection.peek()}")
 
 
 ## Querying and updating the database
+# Retrieve the netflix_titles collection
+collection = client.get_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
 
+# Query the collection for "films about dogs"
+result = collection.query(
+  query_texts=['films about dogs'],
+  n_results=3
+)
 
+print(result)
 
+# Retrieve the netflix_titles collection
+collection = client.get_collection(
+  name="netflix_titles",
+  embedding_function=OpenAIEmbeddingFunction(api_key="____")
+)
+
+# Update or add the new documents
+collection.upsert(
+  ids=[doc['id'] for doc in new_data],
+  documents=[doc['document'] for doc in new_data]
+)
+
+# Delete the item with ID "s95" and re-run the query
+collection.delete(ids=["s95"])
+
+result = collection.query(
+  query_texts=["films about dogs"],
+  n_results=3
+)
+print(result)
 
 
 
