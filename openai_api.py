@@ -527,10 +527,43 @@ print(result['documents'])
 
 
 
+# Introduction to Prompt Engineering 
+# Set your API key
+client = OpenAI(api_key="____")
+
+def get_response(prompt):
+  # Create a request to the chat completions endpoint
+  response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    # Assign the role and content for the message
+    messages=[{"role": "user", "content": prompt}], 
+    temperature = 0)
+  return response.choices[0].message.content
+
+# Test the function with your prompt
+response = get_response("write a poem about ChatGPT")
+print(response)
+
+# Craft a prompt that follows the instructions
+prompt = "write a poem about ChatGPT in basic English that a child can understand"
+
+# Get the response
+response = get_response(prompt)
+
+print(response)
 
 
 
+# Key Principles of prompt Engineering
+# Create a prompt that completes the story (story variable stores the given story)
+prompt = f"""Complete the given story delimited by triple backticks.
+          ```{story}```"""
 
+# Get the generated response 
+response = get_response(prompt)
+
+print("\n Original story: \n", story)
+print("\n Generated story: \n", response)
 
 
 
