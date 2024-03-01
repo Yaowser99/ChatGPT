@@ -565,12 +565,59 @@ response = get_response(prompt)
 print("\n Original story: \n", story)
 print("\n Generated story: \n", response)
 
+# Create a request to complete the story
+prompt = f"""Complete the given story delimited by triple backticks. Do so with only two paragraphs and in the style of William Shakespeare.
+```{story}```"""
+
+# Get the generated response
+response = get_response(prompt)
+
+print("\n Original story: \n", story)
+print("\n Generated story: \n", response)
+
+
+# Structured outputs and conditional prompts
+# Create a prompt that generates the table
+prompt = "Generate a table of 10 books with columns for Title, Author, and Year that I should read as a sci-fi lover. "
+
+# Get the response
+response = get_response(prompt)
+print(response)
+
+
+# Create the instructions
+instructions = "Define the language and generate a suitable title for the text delimited by triple backticks."
+
+# Create the output format
+output_format = """Use the following format for the output: 
+    - Text: <The text we used>
+    - Language: <The languag we defined>
+    - Title: <The title we generated>
+"""
+
+# Create the final prompt
+prompt = instructions + output_format + f"{text}"
+response = get_response(prompt)
+print(response)
+
+# Create the instructions
+instructions = "You will infer the language and the number of sentences of the given text delimited with triple backticks. If the text contains more than one sentence, generate a suitable title for it, otherwise, write 'N/A' for the title. "
+
+# Create the output format
+output_format = """Use the given format for the output: 
+    - Text: <The text we used>
+    - Language: <The language we inferred>
+    - N_sentences: <The sentences we inferred>
+    - Title: <The title we generated>
+"""
+
+prompt = instructions + output_format + f"```{text}```"
+response = get_response(prompt)
+print(response)
 
 
 
-
-
-
+## Few shot Prompting
 
 
 
