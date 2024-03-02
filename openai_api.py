@@ -649,6 +649,38 @@ print(response.choices[0].message.content)
 
 
 
+# Multistep prompting
+# Create a prompt detailing steps to plan the trip
+prompt = """
+     Help me plan a beach vacation.
+     Step 1 - Specify four potential locations for beach vacations
+     Step 2 - State some accommodation options in each
+     Step 3 - State activities that could be done in each
+     Step 4 - Evaluate the pros and cons for each destination
+    """
+
+response = get_response(prompt)
+print(response)
+
+
+code = '''
+def calculate_rectangle_area(length, width):
+    area = length * width
+    return area
+'''
+
+# Create a prompt that analyzes correctness of the code
+prompt = f"""
+Please assess the code function delimited by triple backticks. Follow the steps below: 
+Step 1: Evaluate if the function has correct syntax
+Step 2: Check if the function receives two inputs
+Step 3: Check if hte function returns one output. 
+```{code}```
+"""
+
+response = get_response(prompt)
+print(response)
+
 
 
 
