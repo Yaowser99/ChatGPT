@@ -618,7 +618,34 @@ print(response)
 
 
 ## Few shot Prompting
+# Create a one-shot prompt
+prompt = """
+Q: Extract the odd numbers from the set {1,3,7,12,19}. A: {1,3,7,19}
+Q: Extract the odd numbers from the set {3,5,11,12,16}. A: 
+"""
 
+response = get_response(prompt)
+print(response)
+
+
+response = client.chat.completions.create(
+  model = "gpt-3.5-turbo",
+  # Provide the examples as previous conversations
+  messages = [{"role": "user", 
+               "content": "The product quality exceeded my expectations"},
+              {"role": "assistant",
+               "content": "1"},
+              {"role": "user",
+               "content": "I had a terrible experience with this product's customer service"},
+              {"role": "assistant",
+               "content": "-1"},
+              # Provide the text for the model to classify
+              {"role": "user",
+               "content": "The price of the product is really fair given its features"}
+             ],
+  temperature = 0
+)
+print(response.choices[0].message.content)
 
 
 
