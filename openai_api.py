@@ -683,4 +683,29 @@ print(response)
 
 
 
+## Chain of thought and self consistency promption
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
