@@ -721,12 +721,28 @@ print(response)
 
 
 # Iterative prompt engineering and refindment
+# Refine the following prompt
+prompt = "Give me the top 10 pre-trained language models in a table. It should include model name, release year, and owning company. "
+
+response = get_response(prompt)
+print(response)
 
 
+# Refine the following prompt
+prompt = """
+Receiving a promotion at work made me feel on top of the world -> Happiness
+The movie's ending left me with a heavy feeling in my chest -> Sadness
+Walking alone in the dark alley sent shivers down my spine -> Fear
+Time flies in the modern society with the rapid development of technology -> no explicit emotion
+____
+Time flies like an arrow ->
+"""
+
+response = get_response(prompt)
+print(response)
 
 
-
-
+# Text summarization and expansion
 
 
 
