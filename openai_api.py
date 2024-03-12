@@ -774,6 +774,57 @@ print("Expanded description: \n", response)
 
 
 
+#Text Tranormation
+# Craft a prompt that translates
+prompt = f"""Translate the marketing message delimited in triple backticks from english to french, spanish, and japanese: 
+```{marketing_message}```"""
+ 
+response = get_response(prompt)
+
+print("English:", marketing_message)
+print(response)
+
+
+# Craft a prompt to change the email's tone
+prompt = f"""Here is an email delimited by triple backticks, change the tone of this email to professional, positive, and user-centric. 
+```{sample_email}```"""
+
+response = get_response(prompt)
+
+print("Before transformation: \n", sample_email)
+print("After transformation: \n", response)
+
+# Craft a prompt to transform the text
+prompt = f"""Follow the steps to transform the text delimited by triple backticks. Step 1: Proofread the text without changing its structure. Step 2: Change the tone of the text to be formal and friendly. 
+```{text}```"""
+
+response = get_response(prompt)
+
+print("Before transformation:\n", text)
+print("After transformation:\n", response)
+
+
+
+# Text analysis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
