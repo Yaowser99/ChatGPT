@@ -743,13 +743,34 @@ print(response)
 
 
 # Text summarization and expansion
+# Craft a prompt to summarize the report
+prompt = f"""Summarize the report dlimited by triple backticks, in maximum five sentences, focusing on aspects related to AI and data privacy: 
+```{report}``` """
+
+response = get_response(prompt)
+
+print("Summarized report: \n", response)
 
 
+# Craft a prompt to summarize the product description
+prompt = f"""Summarize the product description delimited by triple backticks in no more than five bullet points, focusing on the product features and specifications: 
+```{product_description}```"""
+
+response = get_response(prompt)
+
+print("Original description: \n", product_description)
+print("Summarized description: \n", response)
 
 
+# Craft a prompt to expand the product's description
+prompt = f"""Expend the product description delimited by triple backticks to provide a comprehensive overview capturing the product's features, benefits and potential applications. Limit the response to one paragraph. 
+```{product_description}```
+"""
 
+response = get_response(prompt)
 
-
+print("Original description: \n", product_description)
+print("Expanded description: \n", response)
 
 
 
