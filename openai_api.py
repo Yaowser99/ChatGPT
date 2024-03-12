@@ -831,13 +831,47 @@ print("Entities: \n", response)
 
 # Code generation and explantion
 
+# Craft a prompt that asks the model for the function
+prompt = """Write a Python function that receives a list of 12 floats representing monthly sales data as input and returns the month with the highest sales value as output. """
+
+response = get_response(prompt)
+print(response)
+
+examples="""input = [10, 5, 8] -> output = 24
+input = [5, 2, 4] -> output = 12
+input = [2, 1, 3] -> output = 7
+input = [8, 4, 6] -> output = 19
+"""
+
+# Craft a prompt that asks the model for the function
+prompt = f"""You are provided wiht input-output examples delimited by triple backticks for a python program that receives a list of numerical values and output estimated completion time. Write a Python function base on the examples. 
+```{examples}```"""
+
+response = get_response(prompt)
+print(response)
 
 
+function = """def calculate_area_rectangular_floor(width, length):
+					return width*length"""
+
+# Craft a multi-step prompt that asks the model to adjust the function
+prompt = f"""You are given a function delimited by triple backticks. This function currently calculates the area of a rectangular floor given its width and length. You need to modify this function with the following steps. 
+Step 1: Modify function to return the perimeter of the rectangle as well. 
+Step 2: Test if the Inputs or dimensions are positive, if not, display an appropriate error message. 
+```{function}```
+"""
+
+response = get_response(prompt)
+print(response)
 
 
-
-
-
+# Craft a chain-of-thought prompt that asks the model to explain what the function does
+prompt = f"""Explain the Python function delimited by triple backticks. Let's think step by step: 
+```{function}```
+"""
+ 
+response = get_response(prompt)
+print(response)
 
 
 
