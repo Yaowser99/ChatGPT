@@ -875,8 +875,51 @@ print(response)
 
 
 
+# Prompt Engineering for Chatbot development
+
+def get_response(system_prompt, user_prompt):
+  # Assign the role and content for each message
+  messages = [{"role": "system", "content": system_prompt},
+      		  {"role": "user", "content": user_prompt}]  
+  response = client.chat.completions.create(
+      model="gpt-3.5-turbo", messages= messages, temperature=0)
+  
+  return response.choices[0].message.content
+
+# Try the function with a system and user prompts of your choice
+system_prompt="You are a experienced financial analyst that provides investment advice. "
+user_prompt="What is an ideal asset allocation strategy in a high interest rate environment? " 
+response = get_response(system_prompt, user_prompt)
+print(response)
 
 
+# Define the purpose of the chatbot
+chatbot_purpose = "You are a customer support agent supporting an e-commerce company specialized in electronics. You will assist users with inquiries, order tracking, and troubleshooting common issues. "
+
+# Define audience guidelines
+audience_guidelines = "The target audience is tech-savvy individuals interested in purchasing electronic gadgets. "
+
+# Define tone guidelines
+tone_guidelines = "You should use a professional and user-friendly tone while interacting with customers. "
+
+system_prompt = chatbot_purpose + audience_guidelines + tone_guidelines
+response = get_response(system_prompt, "My new headphones aren't connecting to my device")
+print(response)
+
+# Define the order number condition
+order_number_condition = "If the user is asking about an order without providing an order number, ask the user to provide an order number. "
+
+# Define the technical issue condition
+technical_issue_condition = "If the user reports a technical issue, expre empathy by starting the response with 'I'm sorry to hear about your issue with ...'"
+
+# Create the refined system prompt
+refined_system_prompt = order_number_condition+technical_issue_condition
+
+response_1 = get_response(refined_system_prompt, "My laptop screen is flickering. What should I do?")
+response_2 = get_response(refined_system_prompt, "Can you help me track my recent order?")
+
+print("Response 1: ", response_1)
+print("Response 2: ", response_2)
 
 
 
