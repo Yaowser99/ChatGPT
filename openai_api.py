@@ -981,7 +981,55 @@ print(response)
 
 
 
+# Open AI project 1 - Trip planning bot for Paris
+# Start your code here!
+import os
+from openai import OpenAI
 
+# Define the model to use
+model = "gpt-3.5-turbo"
+
+# Define the client
+client = OpenAI(api_key="api")
+
+# Define initial conversation
+conversation = [
+    {
+        "role": "system",
+        "content": "You are a travel guide for Peterman Reality Tours, a global tourism company. You will focus on intelligently ansering questions regarding various landmarks in Paris."
+    },
+    {
+        "role": "user",
+        "content": "What are the must see sights in the carribians? "
+    },
+    {
+        "role": "assistant",
+        "content": "Sorry, I only have knowledge with landmakrs in Paris. Try asking me something about Paris. "
+    }
+]
+
+# Define list of user questions
+user_msgs = ["How far away is the Louvre from the Eiffel Tower (in miles) if you are driving?","Where is the Arc de Triomphe?","What are the must-see artworks at the Louvre Museum?"]
+
+# Conversation Loop
+for q in user_msgs: 
+    print("user: ", q)
+    
+    user_dict = {"role":"user","content":q}
+    conversation.append(user_dict)
+    
+    #create the API request
+    response = client.chat.completions.create(
+        model = model,
+        messages=conversation,
+        max_tokens=100,
+        temperature=0.0
+    )
+    
+    # Convert the assistant's message to a dict and append to conversation
+    assitant_dict = {"role":"assistant","content":response.choices[0].message.content}
+    conversation.append(assistant_dict)
+    print("Assistant: ", response.choices[0].message.content, "\n")
 
 
 
